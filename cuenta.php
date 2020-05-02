@@ -500,9 +500,7 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
                 $resultado = (intval($meshoy) - intval($meses)) +(intval($anios) * 12);
               }
               echo "$resultado";
-              if($resultado > 0){
-                $resultado = $resultado - 1;
-              }
+
               if(($meshoy >= $mesvence AND $aniohoy == $aniovence) or ($aniohoy > $aniovence) or ($meshoy >= $mesvence AND $aniohoy > $aniovence)){
                 $abonototal += $mostrarsaldoactual;
               }else{
@@ -656,9 +654,7 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
           $anios = intval($aniohoy) - intval($anios);
           $resultado = (intval($meshoy) - intval($meses)) +(intval($anios) * 12);
         }
-        if($resultado > 0){
-          $resultado = $resultado - 1;
-        }
+        
         echo "$resultado";
         if(($meshoy >= $mesvence AND $aniohoy == $aniovence) or ($aniohoy > $aniovence) or ($meshoy >= $mesvence AND $aniohoy > $aniovence)){
           $abonototal += $mostrarsaldoactual;
