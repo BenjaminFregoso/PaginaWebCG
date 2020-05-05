@@ -457,13 +457,15 @@ if($SO!="Android" and $SO!="BlackBerry" and $SO!="iPad" and $SO!="iPhone"){
           }else{
             $mesesvan += intval($meshoy) - intval($mescompra);
           }
-          if(intval($diahoy)  <= intval($diacompra)){
+          if(intval($diahoy)  < intval($diacompra)){
             $mesesvan -= 1;
           }
 
-          $ideal = $mesesvan *  intval($mostrarabono);
-          $real = intval($mostrarimporte) -  intval($mostrarsaldoactual) - intval($enganche);
+          $ideal = intval($mesesvan) *  intval($mostrarabono);
+          $real = intval($mostrarimporte) -  intval($mostrarsaldoactual);
           $actual = $ideal - $real;
+
+          //echo "meses: $mesesvan actual: $actual real: $real ideal: $ideal mostrarabono: $mostrarabono  ";
           if($actual == 0){
             $mensualidadvecida = 0;
           }else{
@@ -475,11 +477,16 @@ if($SO!="Android" and $SO!="BlackBerry" and $SO!="iPad" and $SO!="iPhone"){
           }
 
           if($mensualidadvecida > $mostrarsaldoactual){
-            $mensualidadvecida =$mostrarsaldoactual;
+            $mensualidadvecida = $mostrarsaldoactual;
           }
           echo "$mensualidadvecida";
           $abonototal += $mensualidadvecida;
-          $mestotal += intval($mostrarabono);
+          if($mostrarabono+$mensualidadvecida > $mostrarsaldoactual){
+            $mestotal += $mostrarsaldoactual -$mensualidadvecida;
+          }else{
+            $mestotal += intval($mostrarabono);
+          }
+
           $mostrarliquidar += $mostrarsaldoactual;
           $interestotal += intval($mostrarinteres);
           ?>
@@ -621,12 +628,12 @@ if($SO!="Android" and $SO!="BlackBerry" and $SO!="iPad" and $SO!="iPhone"){
         }else{
           $mesesvan += intval($meshoy) - intval($mescompra);
         }
-        if(intval($diahoy)  <= intval($diacompra)){
+        if(intval($diahoy)  < intval($diacompra)){
           $mesesvan -= 1;
         }
 
         $ideal = $mesesvan *  intval($mostrarabono);
-        $real = intval($mostrarimporte) -  intval($mostrarsaldoactual) - intval($enganche);
+        $real = intval($mostrarimporte) -  intval($mostrarsaldoactual);
         $actual = $ideal - $real;
         if($actual == 0){
           $mensualidadvecida = 0;
@@ -643,7 +650,11 @@ if($SO!="Android" and $SO!="BlackBerry" and $SO!="iPad" and $SO!="iPhone"){
         }
         echo "$mensualidadvecida";
         $abonototal += $mensualidadvecida;
-        $mestotal += intval($mostrarabono);
+        if($mostrarabono+$mensualidadvecida > $mostrarsaldoactual){
+          $mestotal += $mostrarsaldoactual - $mensualidadvecida;
+        }else{
+          $mestotal += intval($mostrarabono);
+        }
         $mostrarliquidar += $mostrarsaldoactual;
         $interestotal += intval($mostrarinteres);
         ?>
