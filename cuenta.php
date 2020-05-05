@@ -116,6 +116,13 @@ $mostrarfechacompra = "";
 $mostrarvence ="";
 $aniovence = "";
 $mesvence = "";
+$diavence= "";
+$diahoy ="";
+$aniocompra="";
+$mescompra = "";
+$diacompra = "";
+$mestotal = 0;
+$mensualidadvecida = 0;
 $abonototal = 0;
 $ponderacion = 0;
 $operacionvalida = 0;
@@ -126,6 +133,7 @@ $casotresvalida = 0;
 $abonoanttotal=0;
 $interestotal = 0;
 $mostrarliquidar = 0;
+$total=0;
 $cuentaux ="";
 /*
 $servername = "localhost";
@@ -399,7 +407,7 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
             </div>
             <div class="col" data-aos="fade-up"  data-aos-delay="200">
               <div class="block_service">
-                <h3>PAGOS VENCIDOS</h3>
+                <h3>MENSUALIDADES VENCIDAS</h3>
               </div>
             </div>
             <div class="col" data-aos="fade-up"  data-aos-delay="200">
@@ -424,7 +432,7 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
 
   // Create connection
   $conn = new mysqli($servername, $username, $password,$dbname);
-  $sql = "SELECT cuenta, opearcion, ultpago, abonomen, saldoact, saldoant, importe, fecompra, vence, interes FROM cargos WHERE cuenta = '$cuenta'";
+  $sql = "SELECT cuenta, opearcion, ultpago, abonomen, saldoact, saldoant, importe, fecompra, vence, interes, enganche FROM cargos WHERE cuenta = '$cuenta'";
   $result = $conn->query($sql);
   if (!$result) {
       trigger_error('Invalid query: ' . $conn->error);
@@ -445,6 +453,7 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
           $mostrarfechacompra = substr($row["fecompra"], 0, -15);
           $mostrarvence = substr($row["vence"], 0, -15);
           $mostrarinteres = $row["interes"];
+
           ?>
           <div class="row" align="center">
           <div class="col" data-aos="fade-up" data-aos-delay="">
@@ -480,44 +489,53 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
           </div>
           <div class="col" data-aos="fade-up"  data-aos-delay="100">
             <div class="block_service">
-              <p><?php
+              <p>$<?php
+              $enganche = $row["enganche"];
               $anios = substr($mostrarultultfecha, 6, 4);
               $meses = substr($mostrarultultfecha, 3, -5);
+              $dias = substr($mostrarultultfecha, 0, 2);
+
               $aniovence = substr($mostrarvence, 6, 4); //Nuevo
               $mesvence = substr($mostrarvence, 3, -5); //Nuevo
+              $diavence = substr($mostrarvence, 0, 2); //Nuevo
+
+              $aniocompra = substr($mostrarfechacompra, 6, 4);
+              $mescompra = substr($mostrarfechacompra, 3, -5);
+              $diacompra = substr($mostrarfechacompra, 0, 2);
+
               $today = getdate();
               $meshoy = $today['mon'];
               $aniohoy = $today['year'];
-              if($aniohoy > substr($mostrarvence, 6, 4)){
-                if(intval($meshoy) <= intval($meses)){
-                  $resultado = (intval($meshoy) - intval($meses))*-1;
-                }else{
-                  $resultado = (intval($meshoy) - intval($meses));
-                }
+              $diahoy = $today['mday'];
 
+              $mesesvan =0;
+              $mesesvan += (intval($aniohoy) - intval($aniocompra))*12;
+              if(intval($meshoy)  < intval($mescompra)){
+                $mesesvan += intval($meshoy) - intval($mescompra);
               }else{
-                $anios = intval($aniohoy) - intval($anios);
-                $resultado = (intval($meshoy) - intval($meses)) +(intval($anios) * 12);
+                $mesesvan += intval($meshoy) - intval($mescompra);
               }
-              echo "$resultado";
+              if(intval($diahoy)  <= intval($diacompra)){
+                $mesesvan -= 1;
+              }
 
-              if(($meshoy >= $mesvence AND $aniohoy == $aniovence) or ($aniohoy > $aniovence) or ($meshoy >= $mesvence AND $aniohoy > $aniovence)){
-                $abonototal += $mostrarsaldoactual;
+              $ideal = $mesesvan *  intval($mostrarabono);
+              $real = intval($mostrarimporte) -  intval($mostrarsaldoactual) - intval($enganche);
+              $actual = $ideal - $real;
+              if($actual == 0){
+                $mensualidadvecida = 0;
               }else{
-                if($mostrarabono*$resultado >= $mostrarsaldoactual){
-                  if($resultado==0){
-                    $abonototal += intval($mostrarsaldoactual);
-                  }else{
-                    $abonototal += intval($mostrarsaldoactual);
-                  }
+                if($actual > 0){
+                  $mensualidadvecida = $actual;
                 }else{
-                  if($resultado==0){
-                    $abonototal += intval($mostrarabono);
-                  }else{
-                    $abonototal += intval($mostrarabono) * $resultado;
-                  }
+                  $mensualidadvecida = 0;
                 }
               }
+
+
+            echo "$mensualidadvecida";
+              $abonototal += $mensualidadvecida;
+              $mestotal += intval($mostrarabono);
               $mostrarliquidar += $mostrarsaldoactual;
               $interestotal += intval($mostrarinteres);
               ?> </p>
@@ -588,7 +606,7 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
       <th scope="col">SALDO ACTUAL</th>
       <th scope="col">ABONO MENSUAL</th>
       <th scope="col">ÚLTIMO ABONO</th>
-      <th scope="col">PAGOS VENCIDOS</th>
+      <th scope="col">MENSUALIDAD VENCIDA</th>
       <th scope="col">VENCE</th>
       <th scope="col">INTERÉS</th>
     </tr>
@@ -634,45 +652,54 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
       <td>$<?php echo "$mostrarsaldoactual";?></td>
       <td><strong>$<?php echo "$mostrarabono";?></strong></td>
       <td><?php echo "$mostrarultultfecha";?></td>
-      <td>
+      <td>$
         <?php
+        $enganche = $row["enganche"];
         $anios = substr($mostrarultultfecha, 6, 4);
         $meses = substr($mostrarultultfecha, 3, -5);
+        $dias = substr($mostrarultultfecha, 0, 2);
+
         $aniovence = substr($mostrarvence, 6, 4); //Nuevo
         $mesvence = substr($mostrarvence, 3, -5); //Nuevo
+        $diavence = substr($mostrarvence, 0, 2); //Nuevo
+
+        $aniocompra = substr($mostrarfechacompra, 6, 4);
+        $mescompra = substr($mostrarfechacompra, 3, -5);
+        $diacompra = substr($mostrarfechacompra, 0, 2);
+
         $today = getdate();
         $meshoy = $today['mon'];
         $aniohoy = $today['year'];
-        if($aniohoy > substr($mostrarvence, 6, 4)){
-          if(intval($meshoy) <= intval($meses)){
-            $resultado = (intval($meshoy) - intval($meses))*-1;
-          }else{
-            $resultado = (intval($meshoy) - intval($meses));
-          }
+        $diahoy = $today['mday'];
 
+        $mesesvan =0;
+        $mesesvan += (intval($aniohoy) - intval($aniocompra))*12;
+        if(intval($meshoy)  < intval($mescompra)){
+          $mesesvan += intval($meshoy) - intval($mescompra);
         }else{
-          $anios = intval($aniohoy) - intval($anios);
-          $resultado = (intval($meshoy) - intval($meses)) +(intval($anios) * 12);
+          $mesesvan += intval($meshoy) - intval($mescompra);
         }
-        
-        echo "$resultado";
-        if(($meshoy >= $mesvence AND $aniohoy == $aniovence) or ($aniohoy > $aniovence) or ($meshoy >= $mesvence AND $aniohoy > $aniovence)){
-          $abonototal += $mostrarsaldoactual;
+        if(intval($diahoy)  <= intval($diacompra)){
+          $mesesvan -= 1;
+        }
+
+        $ideal = $mesesvan *  intval($mostrarabono);
+        $real = intval($mostrarimporte) -  intval($mostrarsaldoactual) - intval($enganche);
+        $actual = $ideal - $real;
+        if($actual == 0){
+          $mensualidadvecida = 0;
         }else{
-          if($mostrarabono*$resultado >= $mostrarsaldoactual){
-            if($resultado==0){
-              $abonototal += intval($mostrarsaldoactual);
-            }else{
-              $abonototal += intval($mostrarsaldoactual);
-            }
+          if($actual > 0){
+            $mensualidadvecida = $actual;
           }else{
-            if($resultado==0){
-              $abonototal += intval($mostrarabono);
-            }else{
-              $abonototal += intval($mostrarabono) * $resultado;
-            }
+            $mensualidadvecida = 0;
           }
         }
+
+
+        echo "$mensualidadvecida";
+        $abonototal += $mensualidadvecida;
+        $mestotal += intval($mostrarabono);
         $mostrarliquidar += $mostrarsaldoactual;
         $interestotal += intval($mostrarinteres);
         ?>
@@ -702,13 +729,21 @@ if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casod
 }
 $mostrarliquidar += $interestotal;
 $abonototal += $interestotal;
+$total= intval($mestotal) + intval($abonototal);
 ?>
 <div class="row" align="center">
   <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="">
     <div class="block_service">
     </br>
 
-      <h3>ABONO TOTAL SUGERIDO: $<?php echo "$abonototal";?></h3>
+      <h3>MENSUALIDADES VENCIDAS: $<?php echo "$abonototal";?></h3>
+      <h3>MENSUALIDAD <?php
+      $bMeses = array("void","Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre");
+      $meshoy = $bMeses[$today["mon"]];
+      $meshoy=strtoupper($meshoy);
+      echo "$meshoy: ";
+      ?>$<?php echo "$mestotal";?></h3></br>
+      <h3>ABONO TOTAL SUGERIDO: $<?php echo "$total";?></h3>
     </div>
   </div>
   <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="">
