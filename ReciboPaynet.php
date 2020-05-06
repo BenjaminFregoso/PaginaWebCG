@@ -5,6 +5,8 @@
 <title>Casa Guerrero</title>
 <link href="pago.css" rel="stylesheet" type="text/css">
 <link rel="icon" type="image/png" href="images/logo.png" />
+
+
 </head>
 <?php
 
@@ -41,6 +43,7 @@ if(array_key_exists('monto', $_POST)) {
           if(isset($_POST['ftotal'])){$ftotal = ($_POST['ftotal']);}else{$ftotal ="";}
 					$eleccion =$ftotal;
         }
+				
 ?>
 <body>
 <div class="whitepaper">
@@ -60,7 +63,14 @@ if(array_key_exists('monto', $_POST)) {
     	<div class="col1">
         	<h3>Fecha límite de pago</h3>
             <h4>No Aplica</h4>
-
+						<div align="center">
+						<?php
+						require "vendor/autoload.php";
+						$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+						$code = $Bar->getBarcode($freferencia, $Bar::TYPE_CODE_128);
+						echo  "$code";
+						?>
+					</div>
         	<center><span><?php echo "$freferencia";?></span></center>
             <small>En caso de que el escáner no sea capaz de leer el código de barras, escribir la referencia tal como se muestra.</small>
 
@@ -153,7 +163,6 @@ if(array_key_exists('monto', $_POST)) {
     	<a href="index.html">Regresar al inicio</a>
     </div>
 </div>
-
 
 </body>
 </html>

@@ -83,6 +83,14 @@
 <h2 class="text-black mb-2"><br>DESGLOSE DE CUENTA </br></br></h2>
 
 
+<script type="text/javascript">
+function validaNumericos(event) {
+    if(event.charCode >= 48 && event.charCode <= 57){
+      return true;
+     }
+     return false;
+}
+</script>
 <!-- SECCION PHP -->
 <?php
 $mostrarnombre = "";
