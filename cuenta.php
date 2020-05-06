@@ -60,6 +60,7 @@
 
                 <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
                   <li><a href="#home" class="nav-link">INICIO</a></li>
+                  <li><a href="#paynet" class="nav-link">DEPOSITOS</a></li>
                   <li><a href="#bancos" class="nav-link">CUENTAS</br>BANCARIAS</a></li>
                   <li><a href="#ayuda" class="nav-link">AYUDA</a></li>
                   <li><a href="pagos.html" onclick="window.location='pagos.html'" class="nav-link">SALIR</a></li>
@@ -135,17 +136,18 @@ $interestotal = 0;
 $mostrarliquidar = 0;
 $total=0;
 $cuentaux ="";
-/*
+$referenciapaynet="";
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dbcredito";
-*/
+/*
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
-
+*/
   if($cuenta!=""){$ponderacion += 10;}
   if($operacion!=""){$ponderacion += 10;}
   if($fnombre!=""){$ponderacion += 6;}
@@ -347,7 +349,7 @@ $SO = getPlatform($user_agent);
 }
 //VALIDACIONES
 
-if($SO!="Android" and $SO!="BlackBerry" and $SO!="iPad" and $SO!="iPhone"){
+
 
     if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casodosvalida == 1 or $casotresvalida == 1){
 
@@ -366,6 +368,94 @@ if($SO!="Android" and $SO!="BlackBerry" and $SO!="iPad" and $SO!="iPhone"){
             $fnombre= $row["Nombre"];
             $fpaterno=$row["Paterno"];
             $fmaterno=$row["Materno"];
+            $letrapaterno=substr($fnombre, 0, 1);
+            $numeropaterno="";
+            switch ($letrapaterno) {
+    case "A":
+        $numeropaterno="01";
+        break;
+    case "B":
+        $numeropaterno="02";
+        break;
+    case "C":
+        $numeropaterno="03";
+        break;
+        case "D":
+            $numeropaterno="04";
+            break;
+            case "E":
+                $numeropaterno="05";
+                break;
+                case "F":
+                    $numeropaterno="06";
+                    break;
+                    case "G":
+                        $numeropaterno="07";
+                        break;
+                        case "H":
+                            $numeropaterno="08";
+                            break;
+                            case "I":
+                                $numeropaterno="09";
+                                break;
+                                case "J":
+                                    $numeropaterno="10";
+                                    break;
+                                    case "K":
+                                        $numeropaterno="11";
+                                        break;
+                                        case "L":
+                                            $numeropaterno="12";
+                                            break;
+                                            case "M":
+                                                $numeropaterno="13";
+                                                break;
+                                                case "N":
+                                                    $numeropaterno="14";
+                                                    break;
+                                                    case "O":
+                                                        $numeropaterno="15";
+                                                        break;
+                                                        case "P":
+                                                            $numeropaterno="16";
+                                                            break;
+                                                            case "Q":
+                                                                $numeropaterno="17";
+                                                                break;
+                                                                case "R":
+                                                                    $numeropaterno="18";
+                                                                    break;
+                                                                    case "S":
+                                                                        $numeropaterno="19";
+                                                                        break;
+                                                                        case "T":
+                                                                            $numeropaterno="20";
+                                                                            break;
+                                                                            case "U":
+                                                                                $numeropaterno="21";
+                                                                                break;
+                                                                                case "V":
+                                                                                    $numeropaterno="22";
+                                                                                    break;
+                                                                                case "W":
+                                                                                    $numeropaterno="23";
+                                                                                    break;
+                                                                                    case "X":
+                                                                                        $numeropaterno="24";
+                                                                                        break;
+                                                                                        case "Y":
+                                                                                            $numeropaterno="25";
+                                                                                            break;
+                                                                                            case "Z":
+                                                                                                $numeropaterno="26";
+                                                                                                break;
+                                                                                                default:
+                                                                                                $numeropaterno="00";
+                                                                                                break;
+
+}
+            $referenciapaynet = "000150".$numeropaterno.str_replace("-", "", $cuenta);
+            //echo "$referenciapaynet";
             ?>
 
               <h2 class="text-black mb-2"><?php echo "$fnombre $fpaterno $fmaterno";?></h2>
@@ -373,7 +463,13 @@ if($SO!="Android" and $SO!="BlackBerry" and $SO!="iPad" and $SO!="iPhone"){
               <h3 class="text-black mb-2">CUENTA: <?php echo "$cuenta";?></h3>
               </div>
               </div>
-
+              <?php if($SO=="Android" OR $SO=="BlackBerry" OR $SO=="iPad" OR $SO=="iPhone"){ //SIPOSITIVO MOVIL ?>
+              <div align="center">
+              <image>
+                <img src="images/swipe.gif" alt="Image" class="img-fluid" width="20%">
+              </image>
+              </div>
+            <?php } ?>
   <div style="overflow-x:auto;">
             <table class="table" align="center">
     <thead>
@@ -513,175 +609,7 @@ if($SO!="Android" and $SO!="BlackBerry" and $SO!="iPad" and $SO!="iPhone"){
       exit();
     }
 
-}else{
-  //VERSION MOVIL ################################################################
 
-  if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casodosvalida == 1 or $casotresvalida == 1){
-
-
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password,$dbname);
-    $sql = "SELECT Nombre, Paterno, Materno FROM clientes WHERE Cuenta = '$cuenta'";
-    $result = $conn->query($sql);
-    if (!$result) {
-        trigger_error('Invalid query: ' . $conn->error);
-    }
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          $fnombre= $row["Nombre"];
-          $fpaterno=$row["Paterno"];
-          $fmaterno=$row["Materno"];
-          ?>
-
-            <h2 class="text-black mb-2"><?php echo "$fnombre $fpaterno $fmaterno";?></h2>
-          </br>
-            <h3 class="text-black mb-2">CUENTA: <?php echo "$cuenta";?></h3>
-            </div>
-            </div>
-            <div align="center">
-            <image>
-              <img src="images/swipe.gif" alt="Image" class="img-fluid" width="20%">
-            </image>
-          </div>
-<div style="overflow-x:auto;">
-          <table class="table">
-  <thead>
-    <tr align="center">
-      <th scope="col">OPERACIÓN</th>
-      <th scope="col">FECHA DE COMPRA</th>
-      <th scope="col">IMPORTE</th>
-      <th scope="col">SALDO ACTUAL</th>
-      <th scope="col">ABONO MENSUAL</th>
-      <th scope="col">ÚLTIMO ABONO</th>
-      <th scope="col">MENSUALIDAD VENCIDA</th>
-      <th scope="col">VENCE</th>
-      <th scope="col">INTERÉS</th>
-    </tr>
-  </thead>
-  <tbody>
-            <?php
-
-        }
-    } else {
-        //echo "0 results";
-    }
-    $result->close();
-    $conn->close();
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password,$dbname);
-    $sql = "SELECT cuenta, opearcion, ultpago, abonomen, saldoact, saldoant, importe, fecompra, vence, interes, enganche FROM cargos WHERE cuenta = '$cuenta'";
-    $result = $conn->query($sql);
-    if (!$result) {
-        trigger_error('Invalid query: ' . $conn->error);
-    }
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-          $operacion= $row["opearcion"];
-          $mostrarultultfecha = $row["ultpago"];
-          $mostrarabono = $row["abonomen"];
-          $mostrarultultfecha =substr($mostrarultultfecha, 0, -15);
-          //$abonototal += intval($mostrarabono);
-          $mostrarsaldoactual=  $row["saldoact"];
-          if($mostrarabono > $mostrarsaldoactual){
-            $mostrarabono = $mostrarsaldoactual;
-          }
-          $mostrarimporte = $row["importe"];
-          $mostrarfechacompra = substr($row["fecompra"], 0, -15);
-          $mostrarvence = substr($row["vence"], 0, -15);
-          $mostrarinteres = $row["interes"];
-            ?>
-            <tr align="center">
-      <th scope="row"><?php echo "$operacion";?></th>
-      <td><?php echo "$mostrarfechacompra";?></td>
-      <td>$<?php echo "$mostrarimporte";?></td>
-      <td>$<?php echo "$mostrarsaldoactual";?></td>
-      <td><strong>$<?php echo "$mostrarabono";?></strong></td>
-      <td><?php echo "$mostrarultultfecha";?></td>
-      <td>$
-        <?php
-        $enganche = $row["enganche"];
-        $anios = substr($mostrarultultfecha, 6, 4);
-        $meses = substr($mostrarultultfecha, 3, -5);
-        $dias = substr($mostrarultultfecha, 0, 2);
-
-        $aniovence = substr($mostrarvence, 6, 4); //Nuevo
-        $mesvence = substr($mostrarvence, 3, -5); //Nuevo
-        $diavence = substr($mostrarvence, 0, 2); //Nuevo
-
-        $aniocompra = substr($mostrarfechacompra, 6, 4);
-        $mescompra = substr($mostrarfechacompra, 3, -5);
-        $diacompra = substr($mostrarfechacompra, 0, 2);
-
-        $today = getdate();
-        $meshoy = $today['mon'];
-        $aniohoy = $today['year'];
-        $diahoy = $today['mday'];
-
-        $mesesvan =0;
-        $mesesvan += (intval($aniohoy) - intval($aniocompra))*12;
-        if(intval($meshoy)  < intval($mescompra)){
-          $mesesvan += intval($meshoy) - intval($mescompra);
-        }else{
-          $mesesvan += intval($meshoy) - intval($mescompra);
-        }
-        if(intval($diahoy)  < intval($diacompra)){
-          $mesesvan -= 1;
-        }
-
-        $ideal = $mesesvan *  intval($mostrarabono);
-        $real = intval($mostrarimporte) -  intval($mostrarsaldoactual);
-        $actual = $ideal - $real;
-        if($actual == 0){
-          $mensualidadvecida = 0;
-        }else{
-          if($actual > 0){
-            $mensualidadvecida = $actual;
-          }else{
-            $mensualidadvecida = 0;
-          }
-        }
-
-        if($mensualidadvecida > $mostrarsaldoactual){
-          $mensualidadvecida =$mostrarsaldoactual;
-        }
-        echo "$mensualidadvecida";
-        $abonototal += $mensualidadvecida;
-        if($mostrarabono+$mensualidadvecida > $mostrarsaldoactual){
-          $mestotal += $mostrarsaldoactual - $mensualidadvecida;
-        }else{
-          $mestotal += intval($mostrarabono);
-        }
-        $mostrarliquidar += $mostrarsaldoactual;
-        $interestotal += intval($mostrarinteres);
-        ?>
-      </td>
-      <td><?php echo "$mostrarvence";?></td>
-      <td>$<?php echo "$mostrarinteres";?></td>
-
-
-    </tr>
-            <?php
-        }
-        ?>
-      </tbody>
-</table>
-</div>
-        <?php
-    } else {
-        //echo "0 results";
-    }
-    $result->close();
-    $conn->close();
-  }else{
-    header("Location: error.html"); //Poner pagina de error
-    exit();
-  }
-
-}
 
 
 $mostrarliquidar += $interestotal;
@@ -721,26 +649,56 @@ if($total > $mostrarliquidar){
 
 </div>
 </section>
-<!--AVISO -->
 
-<section class="site-section bg-primary trainers" id="aviso">
+
+<!--PAYNET -->
+
+<section class="site-section bg-primary trainers" id="paynet">
   <div class="container">
     <div class="row justify-content-center" data-aos="fade-up">
-      <div class="col-lg-7 text-center heading-section mb-5">
-        <h4>AVISO IMPORTANTE:</br></br>
-</h4>
-<a>
-  El tiempo aproximado de procesamiento de pagos para que se vea reflejado en el
-   portal es de 3 a 5 días hábiles después de haber enviado tu comprobante de
-    pago a nuestra cuenta oficial de WhatsApp al número 33-36-14-90-14 (10 dígitos).</br>
-     Si no lo ves reflejado en este tiempo te invitamos a contactarnos al teléfono
-     fijo 36-14-90-14 para que una persona del departamento de crédito pueda apoyarte.</a>
 
+      <div class="col-lg-9 text-center heading-section mb-5">
+        <h2 class="text-black mb-2">PAGA EN EFECTIVO EN TIENDAS DE CONVENIENCIA</br></br></h2>
+        <h3 class="mb-4">GENERA UNA REFERENCIA PARA ABONAR FACILMENTE EN ESTOS ESTABLECIMIENTOS.</h3>
+      </br>
+        <image>
+          <img src="images/tiendaspaynet.png" alt="Image" class="img-fluid">
+        </image>
+</br></br></br>
+      <form action="ReciboPaynet.php" align="center" class="p-5 contact-form" method="post">
+        <input type="hidden" id="fnombre" name="fnombre" value="<?php echo "$fnombre";?>" />
+        <input type="hidden" id="fpaterno" name="fpaterno" value="<?php echo "$fpaterno";?>" />
+        <input type="hidden" id="fmaterno" name="fmaterno" value="<?php echo "$fmaterno";?>" />
+        <input type="hidden" id="fvencida" name="fvencida" value="<?php echo "$abonototal";?>" />
+        <input type="hidden" id="fmensualidad" name="fmensualidad" value="<?php echo "$mestotal";?>" />
+        <input type="hidden" id="ftotal" name="ftotal" value="<?php echo "$total";?>" />
+        <input type="hidden" id="fcuenta" name="fcuenta" value="<?php echo "$cuenta";?>" />
+        <input type="hidden" id="freferencia" name="freferencia" value="<?php echo "$referenciapaynet";?>" />
+
+      <h4>GENERAR REFERENCIA PARA MENSUALIDADES VENCIDAS: $<?php echo "$abonototal";?></h4>
+      <input type="submit" value="GENERAR REFERENCIA" name="vencida" class="btn btn-dark btn-md text-white">
+    </br></br></br>
+      <h4>GENERAR REFERENCIA PARA MENSUALIDAD DE <?php
+      echo "$meshoy: ";
+      ?>$<?php echo "$mestotal";?></h4>
+      <input type="submit" value="GENERAR REFERENCIA" name="mensualidad" class="btn btn-dark btn-md text-white">
+    </br></br></br>
+      <h4>GENERAR REFERENCIA PARA ABONO TOTAL SUGERIDO: $<?php echo "$total";?></h4>
+      <input type="submit" value="GENERAR REFERENCIA" name="total" class="btn btn-dark btn-md text-white">
+    </br></br></br>
+
+    <h4>GENERAR REFERENCIA PARA OTRO MONTO $</h4>
+    <input type="text" id="fmonto" name="fmonto" type="number" maxlength="10" class="form-control" onkeypress='return validaNumericos(event)' title="Monto que desea pagar">
+    </br>
+
+    <input type="submit" value="GENERAR REFERENCIA" name="monto" class="btn btn-dark btn-md text-white">
       </div>
+    </form>
     </div>
   </div>
 
 </section>
+
 
 
 
@@ -823,7 +781,28 @@ if($total > $mostrarliquidar){
     </div>
     </section>
 
-<section class="site-section bg-primary trainers" id="ayuda">
+    <!--AVISO -->
+
+    <section class="site-section bg-primary trainers" id="aviso">
+      <div class="container">
+        <div class="row justify-content-center" data-aos="fade-up">
+          <div class="col-lg-7 text-center heading-section mb-5">
+            <h4>AVISO IMPORTANTE:</br></br>
+    </h4>
+    <a>
+      El tiempo aproximado de procesamiento de pagos para que se vea reflejado en el
+       portal es de 3 a 5 días hábiles después de haber enviado tu comprobante de
+        pago a nuestra cuenta oficial de WhatsApp al número 33-36-14-90-14 (10 dígitos).</br>
+         Si no lo ves reflejado en este tiempo te invitamos a contactarnos al teléfono
+         fijo 36-14-90-14 para que una persona del departamento de crédito pueda apoyarte.</a>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!--AYUDA-->
+<section class="site-section" id="ayuda">
   <div class="container">
     <div class="row justify-content-center" data-aos="fade-up">
       <div class="col-lg-7  text-left heading-section mb-5">
