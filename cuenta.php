@@ -145,17 +145,17 @@ $mostrarliquidar = 0;
 $total=0;
 $cuentaux ="";
 $referenciapaynet="";
-
+/*
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dbcredito";
-/*
+*/
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
-*/
+
   if($cuenta!=""){$ponderacion += 10;}
   if($operacion!=""){$ponderacion += 10;}
   if($fnombre!=""){$ponderacion += 6;}
@@ -653,6 +653,10 @@ if($total > $mostrarliquidar){
 
       <h3>SALDO PARA LIQUIDAR: $<?php echo "$mostrarliquidar";?></h3>
     </div>
+  </br>
+  <div align="center">
+    <button type="button" class="btn btn-dark btn-md text-white"><a href="#paynet">GENERAR REFERENCIA</a></button>
+  </div>
   </div>
 
 </div>

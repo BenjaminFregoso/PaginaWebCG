@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Casa Guerrero</title>
-<link href="pago.css" rel="stylesheet" type="text/css">
+<link href="pago.css" rel="stylesheet" type="text/css"/>
 <link rel="icon" type="image/png" href="images/logo.png" />
-
-
 </head>
+
 <?php
 
 $fvencida="";
@@ -43,11 +42,15 @@ if(array_key_exists('monto', $_POST)) {
           if(isset($_POST['ftotal'])){$ftotal = ($_POST['ftotal']);}else{$ftotal ="";}
 					$eleccion =$ftotal;
         }
-				
+				require "vendor/autoload.php";
+				$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+				$code = $Bar->getBarcode($freferencia, $Bar::TYPE_CODE_128);
+
 ?>
 <body>
 <div class="whitepaper">
 	<div class="Header">
+
 	<div class="Logo_empresa">
     	<img src="images/logo.png" alt="Logo">
     </div>
@@ -65,9 +68,6 @@ if(array_key_exists('monto', $_POST)) {
             <h4>No Aplica</h4>
 						<div align="center">
 						<?php
-						require "vendor/autoload.php";
-						$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
-						$code = $Bar->getBarcode($freferencia, $Bar::TYPE_CODE_128);
 						echo  "$code";
 						?>
 					</div>
@@ -156,13 +156,30 @@ if(array_key_exists('monto', $_POST)) {
 	        ¿Quieres pagar en otras tiendas? visítanos en: www.openpay.mx/tiendas
         </div>
 
+
     </div>
     <div class="Powered">
-    	<img src="images/powered_openpay.png" alt="Powered by Openpay" width="150">
-    	<a href="#">Imprimir</a>
-    	<a href="index.html">Regresar al inicio</a>
+      <img src="images/powered_openpay.png" alt="Powered by Openpay" width="150">
+      <a href="#" id="download">Descargar recibo</a>
+      <a onclick="goBack()">Regresar</a>
     </div>
-</div>
+	</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script>
+
+html2canvas(document.body, {
+  onrendered (canvas) {
+    var link = document.getElementById('download');;
+    var image = canvas.toDataURL();
+    link.href = image;
+    link.download = 'casaguerrero.png';
+  }
+ });
+
+ function goBack() {
+   window.history.back();
+ }
+</script>
 </body>
 </html>
