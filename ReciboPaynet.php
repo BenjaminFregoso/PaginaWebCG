@@ -45,7 +45,6 @@ if(array_key_exists('monto', $_POST)) {
 				require "vendor/autoload.php";
 				$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
 				$code = $Bar->getBarcode($freferencia, $Bar::TYPE_CODE_128);
-
 ?>
 <body>
 <div class="whitepaper">
