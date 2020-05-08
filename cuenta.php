@@ -145,17 +145,17 @@ $mostrarliquidar = 0;
 $total=0;
 $cuentaux ="";
 $referenciapaynet="";
-/*
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dbcredito";
-*/
+/*
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
-
+*/
   if($cuenta!=""){$ponderacion += 10;}
   if($operacion!=""){$ponderacion += 10;}
   if($fnombre!=""){$ponderacion += 6;}
@@ -593,13 +593,19 @@ $SO = getPlatform($user_agent);
             $actual = abs($actual);
 
             if($actual >= $mostrarabono){
-              $mestotal += intval($mostrarabono);
+              if($diahoy<=$diavence){
+                $mestotal += intval($mostrarabono);
+              }
+
             }else{
               if($mostrarabono+$mensualidadvecida > $mostrarsaldoactual){
+                if($diahoy<=$diavence){
                   $mestotal += $mostrarsaldoactual -$mensualidadvecida;
-
+                }
               }else{
+                if($diahoy<=$diavence){
                     $mestotal += intval($mostrarabono) - $actual;
+                  }
 
               }
 
