@@ -145,17 +145,17 @@ $mostrarliquidar = 0;
 $total=0;
 $cuentaux ="";
 $referenciapaynet="";
-
+/*
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dbcredito";
-/*
+*/
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
-*/
+
   if($cuenta!=""){$ponderacion += 10;}
   if($operacion!=""){$ponderacion += 10;}
   if($fnombre!=""){$ponderacion += 6;}
@@ -376,7 +376,7 @@ $SO = getPlatform($user_agent);
             $fnombre= $row["Nombre"];
             $fpaterno=$row["Paterno"];
             $fmaterno=$row["Materno"];
-            $letrapaterno=substr($fnombre, 0, 1);
+            $letrapaterno=substr($fpaterno, 0, 1);
             $numeropaterno="";
             switch ($letrapaterno) {
     case "A":
@@ -463,7 +463,7 @@ $SO = getPlatform($user_agent);
 
 }
             $referenciapaynet = "000150".$numeropaterno.str_replace("-", "", $cuenta);
-            //echo "$referenciapaynet";
+            
             ?>
 
               <h2 class="text-black mb-2"><?php echo "$fnombre $fpaterno $fmaterno";?></h2>
@@ -591,7 +591,6 @@ $SO = getPlatform($user_agent);
             }
 
             $actual = abs($actual);
-
             if($actual >= $mostrarabono){
               if($diahoy<=$diavence){
                 $mestotal += intval($mostrarabono);
@@ -602,6 +601,7 @@ $SO = getPlatform($user_agent);
                 if($diahoy<=$diavence){
                   $mestotal += $mostrarsaldoactual -$mensualidadvecida;
                 }
+
               }else{
                 if($diahoy<=$diavence){
                     $mestotal += intval($mostrarabono) - $actual;
@@ -648,9 +648,8 @@ $SO = getPlatform($user_agent);
 $mostrarliquidar += $interestotal;
 $abonototal += $interestotal;
 $total= intval($mestotal) + intval($abonototal);
-
 if($total > $mostrarliquidar){
-  $mestotal = 0;
+  $mestotal = $total - $abonototal ;
   $total = $mostrarliquidar;
 }
 ?>
@@ -679,18 +678,17 @@ if($total > $mostrarliquidar){
       <h3>SALDO PARA LIQUIDAR: $<?php echo "$mostrarliquidar";?></h3>
     </div>
   </br>
-  <!--
+
+
   <div align="center">
     <button type="button" class="btn btn-dark btn-md text-white"><a href="#paynet">PAGO EN EFECTIVO</a></button>
   </div>
--->
+
   </div>
 
 </div>
 </section>
 
-<?php
-/*
 <!--PAYNET -->
 
 <section class="site-section bg-primary trainers" id="paynet">
@@ -714,24 +712,26 @@ if($total > $mostrarliquidar){
         <input type="hidden" id="fvencida" name="fvencida" value="<?php echo "$abonototal";?>" />
         <input type="hidden" id="fmensualidad" name="fmensualidad" value="<?php echo "$mestotal";?>" />
         <input type="hidden" id="ftotal" name="ftotal" value="<?php echo "$total";?>" />
+        <input type="hidden" id="fliquidar" name="fliquidar" value="<?php echo "$mostrarliquidar";?>" />
         <input type="hidden" id="fcuenta" name="fcuenta" value="<?php echo "$cuenta";?>" />
         <input type="hidden" id="freferencia" name="freferencia" value="<?php echo "$referenciapaynet";?>" />
 
-      <h4>GENERAR REFERENCIA PARA MENSUALIDADES VENCIDAS: $<?php echo "$abonototal";?></h4>
+      <h4>PARA MENSUALIDADES VENCIDAS: $<?php echo "$abonototal";?></h4>
       <input type="submit" value="GENERAR REFERENCIA" name="vencida" class="btn btn-dark btn-md text-white">
     </br></br></br>
-      <h4>GENERAR REFERENCIA PARA MENSUALIDAD DE <?php
+      <h4>PARA MENSUALIDAD DE <?php
       echo "$meshoy: ";
       ?>$<?php echo "$mestotal";?></h4>
       <input type="submit" value="GENERAR REFERENCIA" name="mensualidad" class="btn btn-dark btn-md text-white">
     </br></br></br>
-      <h4>GENERAR REFERENCIA PARA ABONO TOTAL SUGERIDO: $<?php echo "$total";?></h4>
+      <h4>PARA ABONO TOTAL SUGERIDO: $<?php echo "$total";?></h4>
       <input type="submit" value="GENERAR REFERENCIA" name="total" class="btn btn-dark btn-md text-white">
     </br></br></br>
+    <h4>PARA LIQUIDAR: $<?php echo "$mostrarliquidar";?></h4>
+    <input type="submit" value="GENERAR REFERENCIA" name="liquidar" class="btn btn-dark btn-md text-white">
+  </br></br></br>
 
-    AGREGAR PARA LIQUIDAR
-
-    <h4>GENERAR REFERENCIA PARA OTRO MONTO $</h4>
+    <h4>PARA OTRO MONTO $</h4>
     <input type="text" id="fmonto" name="fmonto" type="number" maxlength="10" class="form-control" onkeypress='return validaNumericos(event)' title="Monto que desea pagar">
     </br>
 
@@ -745,8 +745,7 @@ if($total > $mostrarliquidar){
 
 </section>
 
-*/
-?>
+
 
 
 <!-- BANCOS-->

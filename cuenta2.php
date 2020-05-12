@@ -505,7 +505,7 @@ $SO = getPlatform($user_agent);
 
       // Create connection
       $conn = new mysqli($servername, $username, $password,$dbname);
-      $sql = "SELECT cuenta, opearcion, ultpago, abonomen, saldoact, saldoant, importe, fecompra, vence, interes, enganche FROM cargos WHERE cuenta = '$cuenta'";
+      $sql = "SELECT cuenta, opearcion, ultpago, abonomen, saldoact, saldoant, importe, fecompra, vence, interes, enganche, plazo FROM cargos WHERE cuenta = '$cuenta'";
       $result = $conn->query($sql);
       if (!$result) {
           trigger_error('Invalid query: ' . $conn->error);
@@ -526,6 +526,7 @@ $SO = getPlatform($user_agent);
             $mostrarfechacompra = substr($row["fecompra"], 0, -15);
             $mostrarvence = substr($row["vence"], 0, -15);
             $mostrarinteres = $row["interes"];
+            $plazo = $row["plazo"];
               ?>
               <tr align="center">
         <th scope="row"><?php echo "$operacion";?></th>
@@ -554,43 +555,66 @@ $SO = getPlatform($user_agent);
           $aniohoy = $today['year'];
           $diahoy = $today['mday'];
 
-          $mesesvan =0;
-          $mesesvan += (intval($aniohoy) - intval($aniocompra))*12;
-          if(intval($meshoy)  < intval($mescompra)){
-            $mesesvan += intval($meshoy) - intval($mescompra);
-          }else{
-            $mesesvan += intval($meshoy) - intval($mescompra);
-          }
-          if(intval($diahoy)  < intval($diacompra)){
-            $mesesvan -= 1;
-          }
 
-          $ideal = intval($mesesvan) *  intval($mostrarabono);
-          $real = intval($mostrarimporte) -  intval($mostrarsaldoactual);
-          $actual = $ideal - $real;
-
-          //echo "meses: $mesesvan actual: $actual real: $real ideal: $ideal mostrarabono: $mostrarabono  ";
-          if($actual == 0){
-            $mensualidadvecida = 0;
-          }else{
-            if($actual > 0){
-              $mensualidadvecida = $actual;
+            $mesesvan =0;
+            $mesesvan += (intval($aniohoy) - intval($aniocompra))*12;
+            if(intval($meshoy)  < intval($mescompra)){
+              $mesesvan += intval($meshoy) - intval($mescompra);
             }else{
-              $mensualidadvecida = 0;
+              $mesesvan += intval($meshoy) - intval($mescompra);
             }
-          }
+            if(intval($diahoy)  < intval($diacompra)){
+                $mesesvan -= 1;
+            }
+            if($mesesvan >= intval($plazo)){
+              $mensualidadvecida = $mostrarsaldoactual;
+              $abonototal += $mensualidadvecida;
 
-          if($mensualidadvecida > $mostrarsaldoactual){
-            $mensualidadvecida = $mostrarsaldoactual;
+            }else{
+
+            $ideal = intval($mesesvan) *  intval($mostrarabono);
+            $real = intval($mostrarimporte) -  intval($mostrarsaldoactual);
+            $actual = $ideal - $real;
+
+            //echo "meses: $mesesvan actual: $actual real: $real ideal: $ideal mostrarabono: $mostrarabono  ";
+            if($actual == 0){
+              $mensualidadvecida = 0;
+            }else{
+              if($actual > 0){
+                $mensualidadvecida = $actual;
+              }else{
+                $mensualidadvecida = 0;
+              }
+            }
+            if($mensualidadvecida > $mostrarsaldoactual){
+              $mensualidadvecida = $mostrarsaldoactual;
+            }
+
+            $actual = abs($actual);
+            if($actual >= $mostrarabono){
+              if($diahoy<=$diavence){
+                $mestotal += intval($mostrarabono);
+              }
+
+            }else{
+              if($mostrarabono+$mensualidadvecida > $mostrarsaldoactual){
+                if($diahoy<=$diavence){
+                  $mestotal += $mostrarsaldoactual -$mensualidadvecida;
+                }
+              }else{
+                if($diahoy<=$diavence){
+                    $mestotal += intval($mostrarabono) - $actual;
+                  }
+
+              }
+
+            }
+
+
+            $abonototal += $mensualidadvecida;
+
           }
           echo "$mensualidadvecida";
-          $abonototal += $mensualidadvecida;
-          if($mostrarabono+$mensualidadvecida > $mostrarsaldoactual){
-            $mestotal += $mostrarsaldoactual -$mensualidadvecida;
-          }else{
-            $mestotal += intval($mostrarabono);
-          }
-
           $mostrarliquidar += $mostrarsaldoactual;
           $interestotal += intval($mostrarinteres);
           ?>
@@ -654,14 +678,15 @@ if($total > $mostrarliquidar){
       <h3>SALDO PARA LIQUIDAR: $<?php echo "$mostrarliquidar";?></h3>
     </div>
   </br>
+
   <div align="center">
-    <button type="button" class="btn btn-dark btn-md text-white"><a href="#paynet">GENERAR REFERENCIA</a></button>
+    <button type="button" class="btn btn-dark btn-md text-white"><a href="#paynet">PAGO EN EFECTIVO</a></button>
   </div>
+
   </div>
 
 </div>
 </section>
-
 
 <!--PAYNET -->
 
@@ -676,6 +701,8 @@ if($total > $mostrarliquidar){
         <image>
           <img src="images/tiendaspaynet.png" alt="Image" class="img-fluid">
         </image>
+
+
 </br></br></br>
       <form action="ReciboPaynet.php" align="center" class="p-5 contact-form" method="post">
         <input type="hidden" id="fnombre" name="fnombre" value="<?php echo "$fnombre";?>" />
@@ -684,28 +711,34 @@ if($total > $mostrarliquidar){
         <input type="hidden" id="fvencida" name="fvencida" value="<?php echo "$abonototal";?>" />
         <input type="hidden" id="fmensualidad" name="fmensualidad" value="<?php echo "$mestotal";?>" />
         <input type="hidden" id="ftotal" name="ftotal" value="<?php echo "$total";?>" />
+        <input type="hidden" id="fliquidar" name="fliquidar" value="<?php echo "$mostrarliquidar";?>" />
         <input type="hidden" id="fcuenta" name="fcuenta" value="<?php echo "$cuenta";?>" />
         <input type="hidden" id="freferencia" name="freferencia" value="<?php echo "$referenciapaynet";?>" />
 
-      <h4>GENERAR REFERENCIA PARA MENSUALIDADES VENCIDAS: $<?php echo "$abonototal";?></h4>
+      <h4>PARA MENSUALIDADES VENCIDAS: $<?php echo "$abonototal";?></h4>
       <input type="submit" value="GENERAR REFERENCIA" name="vencida" class="btn btn-dark btn-md text-white">
     </br></br></br>
-      <h4>GENERAR REFERENCIA PARA MENSUALIDAD DE <?php
+      <h4>PARA MENSUALIDAD DE <?php
       echo "$meshoy: ";
       ?>$<?php echo "$mestotal";?></h4>
       <input type="submit" value="GENERAR REFERENCIA" name="mensualidad" class="btn btn-dark btn-md text-white">
     </br></br></br>
-      <h4>GENERAR REFERENCIA PARA ABONO TOTAL SUGERIDO: $<?php echo "$total";?></h4>
+      <h4>PARA ABONO TOTAL SUGERIDO: $<?php echo "$total";?></h4>
       <input type="submit" value="GENERAR REFERENCIA" name="total" class="btn btn-dark btn-md text-white">
     </br></br></br>
+    <h4>PARA LIQUIDAR: $<?php echo "$mostrarliquidar";?></h4>
+    <input type="submit" value="GENERAR REFERENCIA" name="liquidar" class="btn btn-dark btn-md text-white">
+  </br></br></br>
 
-    <h4>GENERAR REFERENCIA PARA OTRO MONTO $</h4>
+    <h4>PARA OTRO MONTO $</h4>
     <input type="text" id="fmonto" name="fmonto" type="number" maxlength="10" class="form-control" onkeypress='return validaNumericos(event)' title="Monto que desea pagar">
     </br>
 
     <input type="submit" value="GENERAR REFERENCIA" name="monto" class="btn btn-dark btn-md text-white">
       </div>
     </form>
+
+
     </div>
   </div>
 

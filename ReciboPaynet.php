@@ -12,6 +12,7 @@
 $fvencida="";
 $fmensualidad="";
 $ftotal="";
+$fliquidar="";
 $fmonto ="";
 $eleccion = "";
 
@@ -41,6 +42,10 @@ if(array_key_exists('monto', $_POST)) {
 				else if(array_key_exists('total', $_POST)) {
           if(isset($_POST['ftotal'])){$ftotal = ($_POST['ftotal']);}else{$ftotal ="";}
 					$eleccion =$ftotal;
+        }
+        else if(array_key_exists('liquidar', $_POST)) {
+          if(isset($_POST['fliquidar'])){$fliquidar = ($_POST['fliquidar']);}else{$fliquidar ="";}
+					$eleccion =$fliquidar;
         }
 				require "vendor/autoload.php";
 				$Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
@@ -123,7 +128,7 @@ if(array_key_exists('monto', $_POST)) {
 								<li>Cuando llegues a tu casa, toma una fotografía clara del comprobante de pago</li>
 								<li>Envíalo por medio de un mensaje de WhatsApp al número 33-3614-9014</li>
             </ol>
-            <small>Si tienes dudas comunícate a Casa Guerrero al teléfono 3614-9014 o al correo credito@casaguerrero.com.mx</small>
+            <small>Si tienes dudas comunícate a Casa Guerrero al teléfono 3614-9014 o al correo cobros@casaguerrero.com.mx</small>
         </div>
     	<div class="col1">
         	<h3>Instrucciones para el cajero</h3>
