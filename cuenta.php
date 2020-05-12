@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Casa Guerrero | Pagos</title>
+    <title>Casa Guerrero | Cuenta</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -116,6 +116,7 @@ if(isset($_POST['fdomnum'])){$fdomnum = ($_POST['fdomnum']);}else{$fdomnum ="";}
 if(isset($_POST['fcol'])){$fcol = ($_POST['fcol']);}else{$fcol ="";}
 if(isset($_POST['fmuni'])){$fmuni = ($_POST['fmuni']);}else{$fmuni ="";}
 
+$today = getdate();
 $mostrarnombre = "";
 $mostraroperacion = "";
 $mostrarultultfecha = "";
@@ -145,17 +146,17 @@ $mostrarliquidar = 0;
 $total=0;
 $cuentaux ="";
 $referenciapaynet="";
-/*
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dbcredito";
-*/
+/*
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
-
+*/
   if($cuenta!=""){$ponderacion += 10;}
   if($operacion!=""){$ponderacion += 10;}
   if($fnombre!=""){$ponderacion += 6;}
@@ -355,10 +356,31 @@ $SO = getPlatform($user_agent);
   $conn->close();
 
 }
+
+//CASOCUATROVALIDA OPERACION VENCIDA-----------------------------------
+if($operacionvalida!=1 AND $cuentavalida==1){
+
+$conn = new mysqli($servername, $username, $password,$dbname);
+$sql = "SELECT Operacion FROM movtos WHERE Operacion = $operacion";
+
+$result = $conn->query($sql);
+if (!$result) {
+    trigger_error('Invalid query: ' . $conn->error);
+}
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      $operacionvalida = 1;
+    }
+} else {
+    //echo "0 results";
+}
+$result->close();
+$conn->close();
+
+}
+
 //VALIDACIONES
-
-
-
     if(($cuentavalida==1 and $operacionvalida == 1) or $casounovalida == 1 or $casodosvalida == 1 or $casotresvalida == 1){
 
 
@@ -463,7 +485,7 @@ $SO = getPlatform($user_agent);
 
 }
             $referenciapaynet = "000150".$numeropaterno.str_replace("-", "", $cuenta);
-            
+
             ?>
 
               <h2 class="text-black mb-2"><?php echo "$fnombre $fpaterno $fmaterno";?></h2>
@@ -505,7 +527,7 @@ $SO = getPlatform($user_agent);
 
       // Create connection
       $conn = new mysqli($servername, $username, $password,$dbname);
-      $sql = "SELECT cuenta, opearcion, ultpago, abonomen, saldoact, saldoant, importe, fecompra, vence, interes, enganche, plazo FROM cargos WHERE cuenta = '$cuenta'";
+      $sql = "SELECT cuenta, opearcion, ultpago, abonomen, saldoact, saldoant, importe, fecompra, vence, interes, enganche, plazo FROM cargos WHERE cuenta = '$cuenta' ORDER BY opearcion asc" ;
       $result = $conn->query($sql);
       if (!$result) {
           trigger_error('Invalid query: ' . $conn->error);
@@ -652,6 +674,14 @@ if($total > $mostrarliquidar){
   $mestotal = $total - $abonototal ;
   $total = $mostrarliquidar;
 }
+
+if($mostrarliquidar == 0){
+  ?>
+  </tbody>
+  </table>
+  </div>
+  <?php
+}
 ?>
 <div class="row" align="left">
     <div class="block_service">
@@ -679,15 +709,31 @@ if($total > $mostrarliquidar){
     </div>
   </br>
 
+<?php if($mostrarliquidar != 0){
 
+?>
   <div align="center">
     <button type="button" class="btn btn-dark btn-md text-white"><a href="#paynet">PAGO EN EFECTIVO</a></button>
   </div>
-
+  <?php
+}
+?>
   </div>
-
 </div>
+<div align="center">
+<form action="historial.php" align="center" class="p-5 contact-form" method="post">
+  <input type="hidden" id="fcuenta" name="fcuenta" value="<?php echo "$cuenta";?>" />
+<input type="submit" value="HISTORIAL" name="cuenta" class="btn btn-dark btn-md text-white">
+
+</form>
+</div>
+</div>
+</div>
+
 </section>
+<?php if($mostrarliquidar != 0){
+
+?>
 
 <!--PAYNET -->
 
@@ -871,6 +917,7 @@ if($total > $mostrarliquidar){
     </div>
   </div>
 </section>
+<?php }?>
 </div>
 
 <script src="js/jquery-3.3.1.js"></script>
