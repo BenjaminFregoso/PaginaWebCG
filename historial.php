@@ -107,17 +107,17 @@ $ultimoabono=0;
 
 if(isset($_POST['fcuenta'])){$cuenta = ($_POST['fcuenta']);}else{$cuenta ="";}
 
-
+/*
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dbcredito";
-/*
+*/
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
-*/
+
 
   $user_agent = $_SERVER['HTTP_USER_AGENT'];
 

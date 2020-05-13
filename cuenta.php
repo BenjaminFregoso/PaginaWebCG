@@ -146,17 +146,17 @@ $mostrarliquidar = 0;
 $total=0;
 $cuentaux ="";
 $referenciapaynet="";
-
+/*
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dbcredito";
-/*
+*/
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
-*/
+
   if($cuenta!=""){$ponderacion += 10;}
   if($operacion!=""){$ponderacion += 10;}
   if($fnombre!=""){$ponderacion += 6;}
@@ -358,7 +358,7 @@ $SO = getPlatform($user_agent);
 }
 
 //CASOCUATROVALIDA OPERACION VENCIDA-----------------------------------
-if($operacionvalida!=1 AND $cuentavalida==1){
+if(($operacion!="" AND $cuentavalida==1) AND ($casounovalida == 0 AND $casodosvalida == 0 AND $casotresvalida == 0)){
 
 $conn = new mysqli($servername, $username, $password,$dbname);
 $sql = "SELECT Operacion FROM movtos WHERE Operacion = $operacion";
@@ -723,7 +723,7 @@ if($mostrarliquidar == 0){
 <div align="center">
 <form action="historial.php" align="center" class="p-5 contact-form" method="post">
   <input type="hidden" id="fcuenta" name="fcuenta" value="<?php echo "$cuenta";?>" />
-<input type="submit" value="HISTORIAL" name="cuenta" class="btn btn-dark btn-md text-white">
+<input type="submit" value="HISTORIAL ÚLTIMO ABONO" name="cuenta" class="btn btn-dark btn-md text-white">
 
 </form>
 </div>
