@@ -62,9 +62,10 @@
             <nav class="site-navigation position-relative text-right" role="navigation">
 
               <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                <li><a href="#interes" class="nav-link">INICIO</a></li>
+                <li><a href="#home" class="nav-link">INICIO</a></li>
+                <li><a href="#ayuda" class="nav-link">AYUDA</a></li>
                 <li><a href="#bancos" class="nav-link">CUENTAS </br>BANCARIAS</a></li>
-                <li><a href="#informacion" class="nav-link">AYUDA</a></li>
+                <li><a href="#informacion" class="nav-link">CONTACTO</a></li>
                 <li><a href="pagos.html" onclick="window.location='pagos.html'" class="nav-link">MI CUENTA</a></li>
               </ul>
             </nav>
@@ -77,12 +78,11 @@
       </div>
     </header>
 
-    <section class="site-blocks-cover overflow-hidden bg-light">
+    <section class="site-blocks-cover overflow-hidden bg-light" id="home">
       <div class="container">
         <div class="row">
           <div class="col-md-7 align-self-center text-center text-md-left">
             <div class="intro-text">
-              <!--<h1 align="center">¡CONSULTA TU ESTADO DE<span class="d-md-block">CUENTA</span><span class="d-md-block">AQUÍ!</span></h1>-->
               <h1 align="center">¡CONSULTA TU ESTADO DE <span class="d-md-block">CUENTA</span><span class="d-md-block"> AQUÍ!</span></h1>
             </div>
             <div align="center" class="">
@@ -93,10 +93,31 @@
           </div>
           <div class="col-md-5 align-self-end text-center text-md-right">
             <div align="center" class="">
-
             <img src="images/logoderecho.png" alt="Image"class="img-fluid cover-img">
-
           </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="site-section bg-primary" id="ayuda" >
+      <div class="container" id="accordion">
+        <div class="row accordion justify-content-center block__76208">
+          <div class="col-lg-6 order-lg-2 mb-5 mb-lg-0" data-aos="fade-up"  data-aos-delay="" align="center">
+
+            <h2 class="text-black mb-2">¿Cómo pagar en efectivo en tiendas de conveniencia y supermercados?</h2>
+          </br>
+            <video width="80%" controls align=center>
+              <source src="videos/tiendas.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="col-lg-6 order-lg-2 mb-5 mb-lg-0" data-aos="fade-up"  data-aos-delay="" align="center">
+
+            <h2 class="text-black mb-2">¿Cómo acceder a mi cuenta?</br></br></h2>
+          </br>
+          <video width="80%" controls align="center">
+            <source src="videos/Consulta.mp4" type="video/mp4">
+          </video>
           </div>
         </div>
       </div>
@@ -126,70 +147,9 @@ DE NUESTROS 3 BANCOS DISPONIBLES.</p>
       </div>
     </section>
 
-<!--DEPOSITO --><!--
-<section class="site-section" id="depositos">
-  <div class="container">
-    <div class="row justify-content-center" data-aos="fade-up">
-      <div class="col-lg-7 text-center heading-section mb-5">
-
-        <h2 class="mb-2 heading">PARA DEPOSITOS EN TIENDAS DE CONVENIENCIA</h2>
-        <p>PUEDES REALIZAR TUS ABONOS POR MEDIO DE UN DEPÓSITO EN LOS SIGUIENTES COMERCIOS:</p>
-      </div>
-    </div>
-    <div class="row">
-
-      <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="">
-        <div class="trainer" align="center">
-          <figure>
-          <img src="images/dogger_trainer_1.png" alt="Image" class="img-fluid">
-          </figure>
-          <strong>COMISIÓN POR DEPÓSITO:</strong>
-          <p>$10 pesos</p>
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="trainer" align="center">
-          <figure>
-          <img src="images/dogger_trainer_2.png" alt="Image" class="img-fluid">
-          </figure>
-          <strong>COMISIÓN POR DEPÓSITO:</strong>
-          <p>$10 pesos</p>
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up"  data-aos-delay="200">
-        <div class="trainer" align="center">
-          <figure>
-          <img src="images/dogger_trainer_3.png" alt="Image" class="img-fluid">
-          </figure>
-          <strong>COMISIÓN POR DEPÓSITO:</strong>
-          <p>$7 pesos</p>
-        </div>
-      </div>
-
-    </div>
-    <div class="row justify-content-center" data-aos="fade-up">
-      <div class="col-lg-7 text-center heading-section mb-5">
-        <figure>
-        <img src="images/digito.png" alt="Image" class="img-fluid" width="700">
-        </figure>
-        <figure>
-        <img src="images/bbva.png" alt="Image" class="img-fluid" width="150">
-        </figure>
-        <figure>
-        <img src="images/cuenta.png" alt="Image" class="img-fluid" width="130%">
-        </figure>
-        <h5 class="mb-2 heading">DEBERÁS SOLICITAR AL CAJERO UN DEPÓSITO A TARJETA DE DEBITO Y BRINDARLE LOS 16 DÍGITOS</br></br></h5>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
--->
 
 <!-- BANCOS-->
-    <section class="site-section  bg-primary trainers" id="bancos">
+    <section class="site-section  bg-primary" id="bancos">
       <div class="container">
         <div class="row justify-content-center" data-aos="fade-up">
           <div class="col-lg-6 text-center heading-section mb-5">
@@ -267,7 +227,30 @@ DE NUESTROS 3 BANCOS DISPONIBLES.</p>
     </div>
     </section>
 
-<section class="site-section " id="informacion">
+    <!--AyudaS
+    <section class="site-section" id="ayuda">
+      <div class="container" id="accordion">
+        <div class="row justify-content-center" data-aos="fade-up">
+          <div class="col-lg-6 text-center heading-section mb-5">
+            <h2 class="text-black mb-2">¿Cómo acceder a mi cuenta?</h2>
+          </br>
+            <video width="500" controls align=center>
+              <source src="videos/Consulta.mp4" type="video/mp4">
+            </video>
+          </br></br></br>
+            <h2 class="text-black mb-2">¿Cómo pagar en efectivo en tiendas de conveniencia y supermercados?</h2>
+          </br>
+            <video width="500" controls align=center>
+              <source src="videos/tiendas.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    Contacto-->
+
+<section class="site-section" id="informacion">
   <div class="container">
     <div class="row justify-content-center" data-aos="fade-up">
       <div class="col-lg-7  text-left heading-section mb-5">
