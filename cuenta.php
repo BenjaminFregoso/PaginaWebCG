@@ -63,7 +63,7 @@
                   <li><a href="#paynet" class="nav-link">DEPOSITOS</a></li>
                   <li><a href="#bancos" class="nav-link">CUENTAS</br>BANCARIAS</a></li>
                   <li><a href="#ayuda" class="nav-link">AYUDA</a></li>
-                  <li><a href="pagos.html" onclick="window.location='pagos.html'" class="nav-link">SALIR</a></li>
+                  <li><a href="pagos.php" onclick="window.location='pagos.php'" class="nav-link">SALIR</a></li>
                 </ul>
               </nav>
             </div>
@@ -156,6 +156,7 @@ $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
+
 
   if($cuenta!=""){$ponderacion += 10;}
   if($operacion!=""){$ponderacion += 10;}
@@ -585,7 +586,7 @@ $conn->close();
             }else{
               $mesesvan += intval($meshoy) - intval($mescompra);
             }
-            if(intval($diahoy)  < intval($diacompra)){
+            if(intval($diahoy)  <= intval($diacompra)){
                 $mesesvan -= 1;
             }
             if($mesesvan >= intval($plazo)){
@@ -626,7 +627,7 @@ $conn->close();
 
               }else{
                 if($diahoy<=$diavence){
-                    $mestotal += intval($mostrarabono) - $actual;
+                    $mestotal += intval($mostrarabono);
                   }
 
               }

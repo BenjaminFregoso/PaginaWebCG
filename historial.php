@@ -113,6 +113,7 @@ $username = "root";
 $password = "";
 $dbname = "dbcredito";
 */
+
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
@@ -201,7 +202,7 @@ $SO = getPlatform($user_agent);
           die("Connection failed: " . $conn->connect_error);
       }
 
-      $sql = "SELECT Operacion, Cantidad, Feabono FROM movtos WHERE Cuenta='$cuenta' ORDER BY Operacion asc";
+      $sql = "SELECT Operacion, Cantidad, Feabono, Concepto FROM movtos WHERE Cuenta='$cuenta' ORDER BY Operacion asc";
       $result = $conn->query($sql);
       if ($result->num_rows > 0) {
           // output data of each row
@@ -209,7 +210,7 @@ $SO = getPlatform($user_agent);
               $fecha = $row["Feabono"];
               $cantidad = $row["Cantidad"];
               $operacion = $row["Operacion"];
-
+              $concepto =$row["Concepto"];
               $anioaux = substr($fecha, 6, 4);
               $mesaux = substr($fecha, 3, 2);
               $diaaux = substr($fecha, 0, 2);
@@ -217,14 +218,19 @@ $SO = getPlatform($user_agent);
               if($anioaux == $anio AND $mesaux == $mes AND $diaaux == $dia){
                 $fechamostrar = substr($fecha, 0, 10);
                 $cantidadmostrar = substr($cantidad, 0, -2);
-                ?>
-                <tr align="center">
-                <th scope="row"><?php echo "$operacion";?></th>
-                <td>$<?php echo "$cantidadmostrar";?></td>
-                <td><?php echo "$fechamostrar";?></td>
-                </tr>
-                <?php
-                $ultimoabono += intval($cantidad);
+                if($concepto=="CANCELADO"){
+                  
+                }else{
+                  ?>
+                  <tr align="center">
+                  <th scope="row"><?php echo "$operacion";?></th>
+                  <td>$<?php echo "$cantidadmostrar";?></td>
+                  <td><?php echo "$fechamostrar";?></td>
+                  </tr>
+                  <?php
+                  $ultimoabono += intval($cantidad);
+                }
+
               }
             }
           }

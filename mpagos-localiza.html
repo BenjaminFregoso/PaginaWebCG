@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Casa Guerrero | Pagos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700, 900|Vollkorn:400i" rel="stylesheet">
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="css/aos.css">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="icon" type="image/png" href="images/logo.png" />
+    <script type="text/javascript">
+    var borrar;
+
+    function checkCuenta(textbox) {
+    var textInput = document.getElementById(textbox).value;
+
+    if(textInput.length == 5){
+      textInput = textInput + "-";
+      document.getElementById(textbox).value = textInput;
+    }
+    if(textInput.length == 8){
+      textInput = textInput + "-";
+      document.getElementById(textbox).value = textInput;
+    }
+    if(borrar == "1"){
+      document.getElementById(textbox).value = "";
+      borrar = "0";
+    }
+
+    }
+
+    function borrarLetra(textbox){
+
+      var inpu = document.getElementById(textbox).value;
+
+      if(inpu.includes("a")||inpu.includes("b")||inpu.includes("c")||inpu.includes("d")||inpu.includes("e")||inpu.includes("f")||
+      inpu.includes("g")||inpu.includes("h")||inpu.includes("i")||inpu.includes("j")||inpu.includes("k")||inpu.includes("l")||
+      inpu.includes("m")||inpu.includes("n")||inpu.includes("o")||inpu.includes("p")||inpu.includes("q")||inpu.includes("r")||
+      inpu.includes("r")||inpu.includes("s")||inpu.includes("t")||inpu.includes("u")||inpu.includes("v")||inpu.includes("w")||
+      inpu.includes("x")||inpu.includes("y")||inpu.includes("z")){
+        document.getElementById(textbox).value = "";
+      }
+
+          var key = event.keyCode || event.charCode;
+          if( key == 8 ){
+          	  document.getElementById(textbox).value = "";
+          }
+
+        if(inpu.substr(-1)=="1" || inpu.substr(-1)=="2" ||inpu.substr(-1)=="3" ||inpu.substr(-1)=="4" ||inpu.substr(-1)=="5" ||inpu.substr(-1)=="6"
+        ||inpu.substr(-1)=="7" || inpu.substr(-1)=="8" ||inpu.substr(-1)=="9" || inpu.substr(-1)=="0"){
+          borrar= "0"
+        }else{
+          document.getElementById(textbox).value = "";
+          borrar= "1"
+        }
+
+    }
+    </script>
+  </head>
+  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" id="home-section">
+
+  <div id="overlayer"></div>
+  <div class="loader">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Cargando...</span>
+    </div>
+  </div>
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+    <header class="site-navbar js-sticky-header site-navbar-target" role="banner" >
+
+      <div class="container">
+        <div class="row align-items-center">
+
+          <div class="col-6 col-xl-2">
+          <img src="images/logouno.png" onclick="window.location='index.html'" alt="Image" class="img-fluid cover-img"  width="40%" style="position: center; margin: auto;">
+          </div>
+
+          <div class="col-12 col-md-10 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+
+              <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
+                <li><a href="index.html" onclick="window.location='index.html'" class="nav-link">INICIO</a></li>
+              </ul>
+            </nav>
+          </div>
+
+
+          <div class="col-6 d-inline-block d-xl-none ml-md-0 py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle float-right"><span class="icon-menu h3"></span></a></div>
+
+        </div>
+      </div>
+    </header>
+
+    <header class="site-navbar js-sticky-header site-navbar-target" role="banner" >
+
+    </header>
+<div class="site-wrap">
+
+  <section class="site-section" id="pricing-section">
+    <div class="container">
+      <div class="row justify-content-center" data-aos="fade-up">
+        <div class="col-lg-7 text-center heading-section mb-5">
+</br>
+          <h2 class="mb-2 text-black heading">CONSULTAR MI PAGO MENSUAL</h2>
+          <p>PARA CONSULTAR TU PAGO MENSUAL Y LOS PASOS PARA REALIZARLO INGRESA LOS SIGUIENTES DATOS</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Formulario -->
+    <section class="" id="contact-section">
+      <div class="container">
+        <div class="row no-gutters">
+
+          <div class="bg-primary">
+            <form action="cuenta.php" class="p-5 contact-form" align="center" method="post">
+                <h4 class="h4 mb-5 heading">POR FAVOR ESCRIBE SOLAMENTE LOS CAMPOS
+                  QUE ESTÁS SEGURO QUE PROPORCIONASTE A CASA GUERRERO, SI NO ESTÁS
+                  SEGURO DE QUE NOS DISTE ESE DATO, PUEDES DEJAR EL CAMPO VACÍO</br></br></h4>
+                  <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <label for="fcuenta">NÚMERO DE CUENTA/CLIENTE</label>
+                      <input type="text" id="fcuenta" name="fcuenta" maxlength="10" type="number" title="Número de cuenta o cliente, ejemplo: 00000-01-1" class="form-control" onkeyup="borrarLetra('fcuenta'); checkCuenta('fcuenta');">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="foperacion">NÚMERO DE OPERACIÓN</label>
+                      <input type="text" id="foperacion" name="foperacion" type="number" title="Número de operación de alguna compra haya realizado a crédito" maxlength="11" class="form-control" onkeyup="borrarLetra('foperacion');">
+                      </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <label for="fnombre">NOMBRE</label>
+                      <input type="text" id="fnombre" name="fnombre" type="text" maxlength="50" class="form-control" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="fpaterno">APELLIDO PATERNO</label>
+                      <input type="text" id="fpaterno" name="fpaterno" type="text" maxlength="20" class="form-control" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <label for="fmaterno">APELLIDO MATERNO</label>
+                      <input type="text" id="fmaterno" name="fmaterno" type="text" maxlength="20" class="form-control" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="fcorreo">CORREO ELECTRÓNICO</label>
+                      <input type="text" id="fcorreo" name="fcorreo" type="email" maxlength="40" class="form-control" title="ejemplo@gmail.com">
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <label for="fcel">TELEFONO CELULAR</label>
+                      <input type="text" id="fcel" name="fcel" type="tel" class="form-control" maxlength="10" onkeyup="borrarLetra('fcel')" title="Deben ser 10 dígitos">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="ftel">TELEFONO DE CASA</label>
+                      <input type="text" id="ftel" name="ftel" type="tel" class="form-control" maxlength="10" onkeyup="borrarLetra('ftel')" title="Deben ser 10 dígitos">
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <label for="fdom">DOMICILIO</label>
+                      <input type="text" id="fdom" name="fdom" type="text" maxlength="40" class="form-control" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="fdomnum">#</label>
+                      <input type="text" id="fdomnum" name="fdomnum" type="number" class="form-control" maxlength="5" onkeyup="borrarLetra('fdomnum')">
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                      <label for="fcol">COLONIA</label>
+                      <input type="text" id="fcol" name="fcol" type="text" maxlength="40" class="form-control" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                    <div class="col-md-6">
+                      <label for="fmuni">MUNICIPIO</label>
+                      <input type="text" id="fmuni" name="fmuni" type="text" maxlength="20" class="form-control" onkeyup="this.value = this.value.toUpperCase();">
+                    </div>
+                  </div>
+                <div class="row form-group">
+                  <div class="col-md-12">
+                    <p></p>
+                    <input type="submit" value="LOCALIZAR MI CUENTA" class="btn btn-dark btn-md text-white">
+                  </div>
+                </div>
+                <ul class="list-unstyled text-center address">
+                  <li>
+
+                    <span class="d-block"></br></br>SI NECESITAS AYUDA PUEDES CONTACTARNOS</br> POR WHATSAPP</br> AL NÚMERO 33 3614 9014 (10 DÍGITOS)</span>
+                      <a href="https://wa.me/5213336149014"><img src="images/whats.png" alt="Image" class="img-fluid" width="80"></a>
+
+                  </li>
+
+                </ul>
+              </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>  <!-- .site-wrap -->
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/isotope.pkgd.min.js"></script>
+
+
+  <script src="js/main.js"></script>
+
+
+  </body>
+</html>

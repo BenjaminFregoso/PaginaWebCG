@@ -27,8 +27,11 @@
     <link rel="icon" type="image/png" href="images/logo.png" />
 
 <script type="text/javascript">
+var borrar;
+
 function checkCuenta(textbox) {
 var textInput = document.getElementById(textbox).value;
+
 if(textInput.length == 5){
   textInput = textInput + "-";
   document.getElementById(textbox).value = textInput;
@@ -37,15 +40,38 @@ if(textInput.length == 8){
   textInput = textInput + "-";
   document.getElementById(textbox).value = textInput;
 }
-//alert(textInput);
+if(borrar == "1"){
+  document.getElementById(textbox).value = "";
+  borrar = "0";
+}
 
 }
 
-function validaNumericos(event) {
-    if(event.charCode >= 48 && event.charCode <= 57){
-      return true;
-     }
-     return false;
+function borrarLetra(textbox){
+
+  var inpu = document.getElementById(textbox).value;
+
+  if(inpu.includes("a")||inpu.includes("b")||inpu.includes("c")||inpu.includes("d")||inpu.includes("e")||inpu.includes("f")||
+  inpu.includes("g")||inpu.includes("h")||inpu.includes("i")||inpu.includes("j")||inpu.includes("k")||inpu.includes("l")||
+  inpu.includes("m")||inpu.includes("n")||inpu.includes("o")||inpu.includes("p")||inpu.includes("q")||inpu.includes("r")||
+  inpu.includes("r")||inpu.includes("s")||inpu.includes("t")||inpu.includes("u")||inpu.includes("v")||inpu.includes("w")||
+  inpu.includes("x")||inpu.includes("y")||inpu.includes("z")){
+    document.getElementById(textbox).value = "";
+  }
+
+      var key = event.keyCode || event.charCode;
+      if( key == 8 ){
+      	  document.getElementById(textbox).value = "";
+      }
+
+    if(inpu.substr(-1)=="1" || inpu.substr(-1)=="2" ||inpu.substr(-1)=="3" ||inpu.substr(-1)=="4" ||inpu.substr(-1)=="5" ||inpu.substr(-1)=="6"
+    ||inpu.substr(-1)=="7" || inpu.substr(-1)=="8" ||inpu.substr(-1)=="9" || inpu.substr(-1)=="0"){
+      borrar= "0"
+    }else{
+      document.getElementById(textbox).value = "";
+      borrar= "1"
+    }
+
 }
 </script>
 
@@ -125,7 +151,7 @@ function validaNumericos(event) {
               <div class="row form-group">
                 <div class="col-md-12 mb-3 mb-md-0">
                   <label for="fcuenta">NÚMERO DE CUENTA/CLIENTE</label>
-                  <input type="text" id="fcuenta" name="fcuenta" maxlength="10" type="number" title="Número de cuenta o cliente, ejemplo: 00000-01-1" class="form-control" onkeypress="checkCuenta('fcuenta'); return validaNumericos(event);">
+                  <input type="text" id="fcuenta" name="fcuenta" maxlength="10" type="number" title="Número de cuenta o cliente, ejemplo: 00000-01-1" class="form-control" onkeyup="borrarLetra('fcuenta'); checkCuenta('fcuenta');">
                   <a href="ticket.html" style="color: blue;"><i>¿Cúal es mi número de cuenta/cliente?</i></a>
                 </div>
 
@@ -134,7 +160,7 @@ function validaNumericos(event) {
               <div class="row form-group">
                 <div class="col-md-12">
                   <label for="foperacion">NÚMERO DE OPERACIÓN</label>
-                  <input type="text" id="foperacion" name="foperacion" type="number" title="Número de operación de alguna compra haya realizado a crédito" maxlength="11" class="form-control" onkeypress='return validaNumericos(event)'>
+                  <input type="text" id="foperacion" name="foperacion" type="number" title="Número de operación de alguna compra haya realizado a crédito" maxlength="11" class="form-control" onkeyup="borrarLetra('foperacion');">
                   <a href="ticket.html" style="color: blue;"><i>¿En donde está mi número de operación?</i></a>
                 </div>
               </div>
