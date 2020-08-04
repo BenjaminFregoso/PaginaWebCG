@@ -77,6 +77,12 @@ if(array_key_exists('monto', $_POST)) {
 					</div>
         	<center><span><?php echo "$freferencia";?></span></center>
             <small>En caso de que el escáner no sea capaz de leer el código de barras, escribir la referencia tal como se muestra.</small>
+          </br>
+            <small style="color:red;"><center><u><b> IMPORTANTE: </b></u></center> </br>
+              <p align="justify">
+                Por cuestiones del sistema utilizado por FARMACIAS GUADALAJARA y FARMACIAS DEL AHORRO, el cajero les solicitará elegir una de las líneas aéreas que les arroja su sistema para aplicar su pago (ej. Volaris, Vivaaerobus o Tar). FAVOR DE COMENTAR AL CAJERO QUE CUALQUIER LÍNEA AÉREA ES CORRECTA.
+            </p>
+            </small>
 
         </div>
         <div class="col2">

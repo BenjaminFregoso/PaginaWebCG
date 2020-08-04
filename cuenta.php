@@ -146,17 +146,17 @@ $mostrarliquidar = 0;
 $total=0;
 $cuentaux ="";
 $referenciapaynet="";
-/*
+
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "dbcredito";
-*/
+/*
 $servername = "localhost";
 $username = "casaguer_consultar";
 $password = "mCF5T[wctL*G";
 $dbname = "casaguer_dbcredito";
-
+*/
 
   if($cuenta!=""){$ponderacion += 10;}
   if($operacion!=""){$ponderacion += 10;}
