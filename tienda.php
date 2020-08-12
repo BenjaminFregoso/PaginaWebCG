@@ -13,6 +13,56 @@
       </div>
       <a href="mostrarCarrito.php" class="badge badge-succes">Ver carrito</a>
     <?php }?>
+<!-- Carousel de articulos-->
+</br>
+  <div id="slider">
+    <input type="radio" name="slider" id="slide1" checked>
+    <input type="radio" name="slider" id="slide2">
+    <input type="radio" name="slider" id="slide3">
+    <input type="radio" name="slider" id="slide4">
+
+    <div id="slides">
+        <div id="overflow">
+          <div class="inner">
+            <div class="slide slide1">
+              <div class="slide-content">
+                <img src="images/banner/banner-2.png" style='height: 100%; width: 100%; object-fit: contain'>
+              </div>
+            </div>
+            <div class="slide slide2">
+              <div class="slide-content">
+                <img src="images/banner/banner.png" style='height: 100%; width: 100%; object-fit: contain'>
+              </div>
+            </div>
+            <div class="slide slide3">
+              <div class="slide-content">
+                <img src="images/banner/banner-3.png" style='height: 100%; width: 100%; object-fit: contain'>
+              </div>
+            </div>
+            <div class="slide slide4">
+              <div class="slide-content">
+                <h2>Slide 4</h2>
+                <p>Contenido de slide 4</p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </br>
+    <div id="controls">
+      <label for="slide1"></label>
+      <label for="slide2"></label>
+      <label for="slide3"></label>
+      <label for="slide4"></label>
+    </div>
+    <div id="bullets">
+      <label for="slide1"></label>
+      <label for="slide2"></label>
+      <label for="slide3"></label>
+      <label for="slide4"></label>
+    </div>
+  </div>
+</br>
 <!-- Tarjetas de articulos -->
       <div class="row">
         <?php

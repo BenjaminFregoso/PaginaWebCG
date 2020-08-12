@@ -44,33 +44,35 @@ Lista del carrito
       <td align="right"><h3>$<?php echo number_format($total,2);?></h3></td>
       <td></td>
     </tr>
+  </br></br>
     <tr>
       <div class="col-lg-12 bg-secondary">
       <td colspan="5">
         <form action="pagar.php" method="post">
           <div class="alert alert-succes">
-            <div class="form-group">
-              <label  for="my-input">Confirmar correo de contacto:</label>
-              <input id="email"
-              name="email"
-              type="email"
-              class="form-control"
-              placeholder="Por favor escribe tu correo"
-              required
-              >
-            </div>
-            <small id="emailHelp"
-            class="form-text text-muted"
-            >
-            El detalle de pedido se enviará a este correo
-          </small>
+            <label  for="my-input">Elije la forma de pago deseada:</label><br/><br/>
+            <div class="form-group" align="center">
+
+
+              <div class="cc-selector">
+                <input checked="checked" id="casag" type="radio" name="credit-card" value="casag" />
+                <label class="drinkcard-cc casag" for="casag"></label>
+
+                <input id="tarjetas" type="radio" name="credit-card" value="tarjetas" />
+                <label class="drinkcard-cc tarjetas" for="tarjetas"></label>
+
+                <input id="paynet" type="radio" name="credit-card" value="paynet" />
+                <label class="drinkcard-cc paynet"for="paynet"></label>
+              </div>
+
           </div>
           <button class="btn btn-primary btn-lg btn-block" type="submit" name="btnAccion" value="Proceder">
-            Proceder a pagar >>
+            PROCEDER A PAGAR
           </button>
+        </div>
       </form>
       </td>
-<div>
+    </div>
     </tr>
   </tbody>
 </table>

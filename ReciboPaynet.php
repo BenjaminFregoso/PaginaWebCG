@@ -15,8 +15,8 @@ $ftotal="";
 $fliquidar="";
 $fmonto ="";
 $eleccion = "";
-
 $fnombre="";
+
 if(isset($_POST['fnombre'])){$fnombre = ($_POST['fnombre']);}else{$fnombre ="";}
 $fpaterno="";
 if(isset($_POST['fpaterno'])){$fpaterno = ($_POST['fpaterno']);}else{$fpaterno ="";}

@@ -6,6 +6,14 @@
 ?>
 
 <?php
+//REVISAR QUE SE TENGA UNA SESION DE USUARIO
+if(!isset($_SESSION['usuario'])){
+  //Redireccionar a iniciar sesion
+  
+}
+
+
+
 if($_POST){
   $total=0;
   $SID=session_id();

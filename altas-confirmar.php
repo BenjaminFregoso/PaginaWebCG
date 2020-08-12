@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Casa Guerrero | Pagos</title>
+    <title>Casa Guerrero | Confirmación de alta</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -94,6 +94,7 @@
           $fcantidad="";
           $fcorta="";
           $flarga="";
+          $fdepartamento="";
           $error="0";
 
           if(isset($_POST['btnAccion'])){
@@ -108,10 +109,35 @@
                   if(isset($_POST['fcantidad'])){$fcantidad = ($_POST['fcantidad']);}else{$error="1";}
                   if(isset($_POST['fcorta'])){$fcorta = ($_POST['fcorta']);}else{$error="1";}
                   if(isset($_POST['flarga'])){$flarga = ($_POST['flarga']);}else{$error="1";}
+                  if(isset($_POST['fdepartamento'])){$fdepartamento = ($_POST['fdepartamento']);}else{$error="1";}
 
                   if($error=="0"){
                     //Agregar guardado de articulos
+
+                    $sentencia=$pdo->prepare("INSERT INTO `tblproductos`
+                      (`id`, `tipo_venta`, `forma_pago`, `forma_pago_enga`, `status`, `fecha`, `clave_transaccion`, `id_comprador`,`total`)
+                    VALUES (NULL, '', '', '', '', NOW(), :tipoVenta, '', :total)");
+
+                    $sentencia=$pdo->prepare("INSERT INTO `tblproductos`
+                      (`id`, `nombre`, `precio_credito`, `precio_contado`, `descripcion`, `descripcion_larga`, `imagen`, `codigo`, `fecha_alta`, `usuario_alta`, `id_departamento`)
+                    VALUES (NULL, :nombre, :precio_cred, :precio_cont, :descripcion, :descripcion_larga, '', :codigo, NOW(), '', :fdepartamento)");
+
+
+                    $sentencia->bindParam(":nombre",$fnombre);
+                    $sentencia->bindParam(":precio_cred",$fcredito);
+                    $sentencia->bindParam(":precio_cont",$fcontado);
+                    $sentencia->bindParam(":descripcion",$fcorta);
+                    $sentencia->bindParam(":descripcion_larga",$flarga);
+                    $sentencia->bindParam(":codigo",$fcodigo);
+                    $sentencia->bindParam(":fdepartamento",$fdepartamento);
+                    $sentencia->execute();
+
+                    $idVenta = $pdo->lastInsertId();
+
                     echo '<h2 class="mb-2 text-black heading">SE REALIZÓ CON EXITO</h2>';
+
+                    //Insertar imagenes
+                    
                   }else{
                     echo '<h2 class="mb-2 text-black heading">NO SE REALIZÓ</h2>';
                   }
