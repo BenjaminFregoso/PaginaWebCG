@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Casa Guerrero | Registro de articulo nuevo</title>
+    <title>Casa Guerrero | Pagos</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -105,7 +105,7 @@
       <div class="row justify-content-center" data-aos="fade-up">
         <div class="col-lg-7 text-center heading-section mb-5">
 </br>
-          <h2 class="mb-2 text-black heading">PORTAL DE REGISTRO DE ARTICULO NUEVO</h2>
+          <h2 class="mb-2 text-black heading">PORTAL DE ENTRADAS A INVENTARIO</h2>
         </div>
       </div>
     </div>
@@ -165,14 +165,13 @@
                     </div>
                     </div>
                       </br>
-                      <!--
+
                   <div class="row form-group">
                     <div class="col-md-12">
                       <label for="fmaterno">CANTIDAD DE ARTICULOS</label>
                       <input type="text" required id="fcantidad" name="fcantidad" type="text" title="Cantidad" maxlength="5" class="form-control" type="number" onkeypress="return validaNumericos(event);">
                     </div>
                   </div>
-                -->
                 </br>
                   <div class="row form-group">
                   <div class="col-md-12">

@@ -596,9 +596,9 @@ $conn->close();
             }else{
 
             $ideal = intval($mesesvan) *  intval($mostrarabono);
-            $real = intval($mostrarimporte) -  intval($mostrarsaldoactual);
+            $real = intval($mostrarimporte) -  intval($mostrarsaldoactual) - intval($enganche);
             $actual = $ideal - $real;
-
+            //echo 'Ideal: '.$ideal.' Real: '.$real.' Actual: '.$actual.' MESES: '.$mesesvan;
             //echo "meses: $mesesvan actual: $actual real: $real ideal: $ideal mostrarabono: $mostrarabono  ";
             if($actual == 0){
               $mensualidadvecida = 0;

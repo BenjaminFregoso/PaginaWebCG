@@ -5,7 +5,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Casa Guerrero | Confirmación de alta</title>
+    <title>Casa Guerrero | Pagos</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -115,10 +115,6 @@
                     //Agregar guardado de articulos
 
                     $sentencia=$pdo->prepare("INSERT INTO `tblproductos`
-                      (`id`, `tipo_venta`, `forma_pago`, `forma_pago_enga`, `status`, `fecha`, `clave_transaccion`, `id_comprador`,`total`)
-                    VALUES (NULL, '', '', '', '', NOW(), :tipoVenta, '', :total)");
-
-                    $sentencia=$pdo->prepare("INSERT INTO `tblproductos`
                       (`id`, `nombre`, `precio_credito`, `precio_contado`, `descripcion`, `descripcion_larga`, `imagen`, `codigo`, `fecha_alta`, `usuario_alta`, `id_departamento`)
                     VALUES (NULL, :nombre, :precio_cred, :precio_cont, :descripcion, :descripcion_larga, '', :codigo, NOW(), '', :fdepartamento)");
 
@@ -136,8 +132,15 @@
 
                     echo '<h2 class="mb-2 text-black heading">SE REALIZÓ CON EXITO</h2>';
 
-                    //Insertar imagenes
-                    
+                    echo '</br></br></br><h3 class="mb-2 text-black heading">AHORA AGREGA LAS IMAGENES DEL ÁRTICULO</h3></br>';
+
+                    ?>
+                    <form action="altas-imagenes.php" method="post">
+                      <input type="hidden" id="fid"  name="fid" value="123">
+                      <input type="submit" name="btnAccio" value="Agregar" class="btn btn-dark btn-md text-white">
+                    </form>
+                    <?php
+
                   }else{
                     echo '<h2 class="mb-2 text-black heading">NO SE REALIZÓ</h2>';
                   }
