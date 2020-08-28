@@ -69,8 +69,11 @@
                 <nav class="site-navigation position-relative text-right" role="navigation">
 
                   <ul class="site-menu main-menu js-clone-nav mr-auto d-none d-lg-block">
-                    <li><a href="index.html" onclick="window.location='pagos.html'" class="nav-link">INICIO</a></li>
-                    <li><a href="tienda.php" onclick="window.location='tienda.php'" class="nav-link">TIENDA</a></li>
+                    <li><a href="index.php" onclick="window.location='pagos.php'" class="nav-link">INICIO</a></li>
+                    <li><a href="index.php" onclick="window.location='index.php'" class="nav-link">TIENDA</a></li>
+                    <li><a href="pagos.php" onclick="window.location='pagos.php'" class="nav-link">MI CRÉDITO</a></li>
+                    <li><a href="abona-credito.php" onclick="window.location='abona-credito.php'" class="nav-link">COMO ABONAR</a></li>
+                    <li><a href="" onclick="" class="nav-link">MI CUENTA</a></li>
                     <li><a href="mostrarCarrito.php" class="nav-link">CARRITO (<?php
                       echo (empty($_SESSION['carrito']))?0:count($_SESSION['carrito']);
                     ?>)</a></li>

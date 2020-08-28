@@ -7,12 +7,39 @@
 
 <!-- Carrito -->
       <br/>
-      <?php if($mensaje!=""){ ?>
+      <!--
+      <?php //if($mensaje!=""){ ?>
       <div class="alert alert-succes">
-          <?php echo $mensaje ?>
+          <?php //echo $mensaje ?>
       </div>
       <a href="mostrarCarrito.php" class="badge badge-succes">Ver carrito</a>
-    <?php }?>
+    <?php //}?>
+  -->
+
+  </div>
+
+  <section class="site-blocks-cover overflow-hidden bg-light" id="home">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7 align-self-center text-center text-md-left">
+          <div class="intro-text">
+            <h1 align="center">¡AHORA PUEDES COMPRAR <span class="d-md-block">EN LÍNEA</span></h1>
+          </div>
+          <div align="center" class="">
+          </br>
+            <button type="button" onclick="window.location='#articulos'" class="btn btn-dark btn-md text-white">VER ARTICULOS</button>
+          </br></br>
+          </div>
+        </div>
+        <div class="col-md-5 align-self-end text-center text-md-right">
+          <div align="center" class="">
+          <img src="images/logoderecho.png" alt="Image"class="img-fluid cover-img">
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 <!-- Carousel de articulos-->
 
 <!--
@@ -50,9 +77,14 @@ function carousel() {
 </section>
 -->
 
+<div class="container">
+
+
+
 <!-- Tarjetas de articulos -->
+<section class="site-section" id="articulos">
   <div class="" align="center"><h3>Articulos mas vendidos</h3>
-    </br
+  </br>
   </div>
       <div class="row">
         <?php
@@ -94,9 +126,16 @@ function carousel() {
           </div>
         <?php }?>
       </div>
+      </section>
+
+
+
       <!-- DEPARTAMENTOS -->
-  <div class="" align="center"><h3>Departamentos</h3></div>
+      <section class="site-section" id="departamentos">
+  <div class="" align="center"><h3>Departamentos</h3>
 </br></br>
+<form action="categoria.php" method="post">
+
   <div class="row">
     <div class="col-sm-6">
       <div class="card mb-5">
@@ -107,11 +146,13 @@ function carousel() {
         data-trigger="hover"
         data-content="Línea Blanca y Electrónica"
         height="400px"
+
         >
         <div class="card-body">
           <h5 class="card-title">Línea Blanca y Electrónica</h5>
           <p class="card-text">Aquí encontraras blah blah blah</p>
-          <a href="#" class="btn btn-primary">Ver Articulos</a>
+          <button class="btn btn-primary" name="btnAccion" value="Línea Blanca y Electrónica" type="submit" class="btn btn-primary">Ver Articulos</button>
+
         </div>
       </div>
     </div>
@@ -122,13 +163,14 @@ function carousel() {
         src="images/tiendaphp/electrodomesticos.jpg"
         data-toggle="popover"
         data-trigger="hover"
-        data-content="Línea Blanca y Electrónica"
+        data-content="Electrodomésticos"
         height="400px"
+
         >
         <div class="card-body">
           <h5 class="card-title">Electrodomésticos</h5>
           <p class="card-text">Aquí encontraras bla blah blah</p>
-          <a href="#" class="btn btn-primary">Ver Articulos</a>
+          <button class="btn btn-primary" name="btnAccion" value="Electrodomésticos" type="submit" class="btn btn-primary">Ver Articulos</button>
         </div>
       </div>
     </div>
@@ -139,13 +181,14 @@ function carousel() {
         src="images/tiendaphp/muebleria.jpg"
         data-toggle="popover"
         data-trigger="hover"
-        data-content="Línea Blanca y Electrónica"
+        data-content="Mueblería"
         height="400px"
+
         >
         <div class="card-body">
           <h5 class="card-title">Mueblería</h5>
           <p class="card-text">Aquí encontraras blah blah blah</p>
-          <a href="#" class="btn btn-primary">Ver Articulos</a>
+          <button class="btn btn-primary" name="btnAccion" value="Mueblería" type="submit" class="btn btn-primary">Ver Articulos</button>
         </div>
       </div>
     </div>
@@ -156,18 +199,21 @@ function carousel() {
         src="images/tiendaphp/perfumes.jpg"
         data-toggle="popover"
         data-trigger="hover"
-        data-content="Línea Blanca y Electrónica"
+        data-content="Perfumes"
         height="400px"
+
         >
         <div class="card-body">
           <h5 class="card-title">Perfumes</h5>
           <p class="card-text">Aquí encontraras blah blah blah</p>
-          <a href="#" class="btn btn-primary">Ver Articulos</a>
+          <button class="btn btn-primary" name="btnAccion" value="Perfumes" type="submit" class="btn btn-primary">Ver Articulos</button>
         </div>
       </div>
     </div>
   </div>
-
+</form>
+</div>
+</section>
 <?php
 include 'templates/pie.php';
 ?>

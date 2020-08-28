@@ -61,7 +61,7 @@ if(isset($_POST['btnAccion'])){
       foreach($_SESSION['carrito'] as $indice=>$producto){
         if($producto['id']==$id){
           unset($_SESSION['carrito'][$indice]);
-          echo "<script>alert('Elemento borrado');</script>";
+          //echo "<script>alert('Elemento borrado');</script>";
         }
       }
     }else{
