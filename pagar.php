@@ -1,15 +1,16 @@
+
 <?php
   include 'global/config.php';
   include 'global/conexion.php';
   include 'carrito.php';
   include 'templates/cabecera.php'
 ?>
-
+</br></br>
 <?php
 //REVISAR QUE SE TENGA UNA SESION DE USUARIO
 if(!isset($_SESSION['usuario'])){
   //Redireccionar a iniciar sesion
-  
+
 }
 
 
