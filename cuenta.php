@@ -93,7 +93,7 @@ function validaNumericos(event) {
 </script>
 <!-- SECCION PHP -->
 <?php
-include 'global/conexion.php';
+  include 'global/conexionant.php';
 $mostrarnombre = "";
 $mostraroperacion = "";
 $mostrarultultfecha = "";
@@ -676,7 +676,9 @@ if($mostrarliquidar == 0){
   <?php
 }
 ?>
+
 <div class="row" align="left">
+  <div class="col-md-6 mb-4 col-lg-5" data-aos="fade-up" data-aos-delay="">
     <div class="block_service">
     </br>
 
@@ -689,17 +691,18 @@ if($mostrarliquidar == 0){
       ?>$<?php echo "$mestotal";?></h3></br>
       <h3>= ABONO TOTAL SUGERIDO: $<?php echo "$total";?></h3>
     </div>
+  </div>
 
-  <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="">
+  <div class="col-md-6 mb-4 col-lg-3" data-aos="fade-up" data-aos-delay="">
     <div class="block_service">
     </div>
   </div>
-  <div class="col-md-6 mb-4 col-lg-4" data-aos="fade-up" data-aos-delay="">
+  <div class="col-md-6 mb-4 col-lg-4" align="center" data-aos="fade-up" data-aos-delay="">
     <div class="block_service">
     </br>
 
       <h3>SALDO PARA LIQUIDAR: $<?php echo "$mostrarliquidar";?></h3>
-    </div>
+
   </br>
 
 <?php if($mostrarliquidar != 0){
@@ -711,8 +714,10 @@ if($mostrarliquidar == 0){
   <?php
 }
 ?>
+</div>
   </div>
 </div>
+
 <div align="center">
 <form action="historial.php" align="center" class="p-5 contact-form" method="post">
   <input type="hidden" id="fcuenta" name="fcuenta" value="<?php echo "$cuenta";?>" />

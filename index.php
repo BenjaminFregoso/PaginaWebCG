@@ -23,7 +23,7 @@
       <div class="row">
         <div class="col-md-7 align-self-center text-center text-md-left">
           <div class="intro-text">
-            <h1 align="center">¡AHORA PUEDES COMPRAR <span class="d-md-block">EN LÍNEA</span></h1>
+            <h1 align="center">¡AHORA PUEDES COMPRAR <span class="d-md-block">EN LÍNEA!</span></h1>
           </div>
           <div align="center" class="">
           </br>
